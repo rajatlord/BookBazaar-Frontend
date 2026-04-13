@@ -1,0 +1,65 @@
+<!-- ═══════════════════════════════════════════════════════
+FILE: index.html  (Part 9)
+
+TEACH — Why index.html is in the root (not public/):
+Vite treats index.html as the entry point, not a static asset.
+It processes the <script type="module"> tag and replaces it
+with the built bundle. The `src` attribute points to your
+TypeScript entry file directly — Vite handles the transform.
+═══════════════════════════════════════════════════════ -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="BookBazaar — India's finest independent book marketplace" />
+
+    <!-- Apple-style favicon using emoji -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📚</text></svg>" />
+
+    <title>BookBazaar</title>
+
+    <!-- SF Pro font stack via system fonts — no external request needed -->
+    <style>
+      /* Prevent flash of unstyled content */
+      body { margin: 0; background: #f5f5f7; }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- TEACH: type="module" enables ES module syntax in the browser.
+         Vite replaces this with the processed bundle during build. -->
+    <script type="module" src="/src/index.tsx"></script>
+  </body>
+</html>
+
+
+<!-- ═══════════════════════════════════════════════════════
+FILE: tsconfig.json  (Part 9)
+═══════════════════════════════════════════════════════ -->
+<!--
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["./src/*"]
+    }
+  },
+  "include": ["src"],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}
+-->

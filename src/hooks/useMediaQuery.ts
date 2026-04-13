@@ -1,0 +1,23 @@
+import { useEffect, useState } from 'react'
+
+
+// ═══════════════════════════════════════════════════════════
+// FILE: src/hooks/useMediaQuery.ts  (Part 9)
+// ═══════════════════════════════════════════════════════════
+
+export function useMediaQuery(query: string): boolean {
+  const [matches, setMatches] = useState(
+    () => window.matchMedia(query).matches
+  )
+  useEffect(() => {
+    const mq = window.matchMedia(query)
+    const handler = (e: MediaQueryListEvent) => setMatches(e.matches)
+    mq.addEventListener('change', handler)
+    return () => mq.removeEventListener('change', handler)
+  }, [query])
+  return matches
+}
+
+export function useIsMobile(): boolean {
+  return useMediaQuery('(max-width: 768px)')
+}

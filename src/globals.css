@@ -1,0 +1,124 @@
+/* ═══════════════════════════════════════════════════════════
+   FILE: src/style/globals.css  (Part 9)
+
+   TEACH — Global CSS vs component styles:
+   We write layout/structural styles globally here. Component-
+   specific styles stay in the component file (styles object).
+   This file only contains:
+     1. CSS reset
+     2. Body/html base styles
+     3. AntD component overrides that can't be done via tokens
+     4. Utility classes used across many components
+   ═══════════════════════════════════════════════════════════ */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #f5f5f7;
+  color: #1d1d1f;
+  font-family: "SF Pro Display", "Helvetica Neue", Arial, sans-serif;
+}
+
+/* Apple-style minimal scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.15); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,0,0,0.28); }
+
+/* ── AntD overrides (can't be done via ConfigProvider tokens) ── */
+
+/* Card: remove AntD's default border, use our shadow */
+.ant-card {
+  box-shadow: 0 2px 10px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.05) !important;
+  border: none !important;
+}
+
+/* Input: gray bg at rest, white + blue ring on focus */
+.ant-input, .ant-input-affix-wrapper {
+  background: #f5f5f7 !important;
+  border-color: transparent !important;
+  transition: all 0.15s !important;
+}
+.ant-input:focus,
+.ant-input-affix-wrapper:focus,
+.ant-input-affix-wrapper-focused {
+  background: #fff !important;
+  border-color: #0071e3 !important;
+  box-shadow: 0 0 0 3px rgba(0,113,227,0.12) !important;
+}
+
+/* InputNumber same treatment */
+.ant-input-number {
+  background: #f5f5f7 !important;
+  border-color: transparent !important;
+}
+.ant-input-number:focus-within {
+  background: #fff !important;
+  border-color: #0071e3 !important;
+  box-shadow: 0 0 0 3px rgba(0,113,227,0.12) !important;
+}
+
+/* Select */
+.ant-select-selector {
+  background: #f5f5f7 !important;
+  border-color: transparent !important;
+}
+.ant-select-focused .ant-select-selector {
+  background: #fff !important;
+  border-color: #0071e3 !important;
+  box-shadow: 0 0 0 3px rgba(0,113,227,0.12) !important;
+}
+
+/* Table: subtle row hover */
+.ant-table-tbody > tr:hover > td {
+  background: #f5f5f7 !important;
+}
+
+/* Menu: AntD sidebar menu item active state */
+.ant-menu-item-selected {
+  background: #e8f0fe !important;
+  color: #0071e3 !important;
+}
+
+/* Tabs: clean underline style */
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #0071e3 !important;
+}
+.ant-tabs-ink-bar { background: #0071e3 !important; }
+
+/* Timeline dot */
+.ant-timeline-item-head { border-width: 2px; }
+
+/* Popover: clean border radius */
+.ant-popover-inner { border-radius: 16px !important; overflow: hidden; }
+
+/* Message (toasts) */
+.ant-message-notice-content { border-radius: 12px !important; }
+
+/* ── Utility classes ── */
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+@media (max-width: 768px) {
+  .page-container { padding: 0 16px; }
+}
+
+/* Fade-in animation for page transitions */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-in {
+  animation: fadeInUp 0.3s ease both;
+}
