@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { PAGINATION } from '../config/constants'
 // ═══════════════════════════════════════════════════════════
 // FILE: src/hooks/usePagination.ts  (Part 9)
 //

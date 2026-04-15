@@ -29,7 +29,7 @@ import React from 'react'
 import { ConfigProvider, App as AntdApp } from 'antd'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './router'
-import { themeConfig } from '@/theme/ThemeConfig.ts'
+import { themeConfig } from './theme/ThemeConfig.ts'
  
 const App: React.FC = () => (
   <ConfigProvider theme={themeConfig}>

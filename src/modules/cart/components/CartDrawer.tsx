@@ -21,11 +21,10 @@
 // ─────────────────────────────────────────────────────────────
 
 import React, { useState } from 'react'
-import { Drawer, Button, InputNumber, Empty, Spin, Divider, Popconfirm } from 'antd'
+import { Drawer, Button, Empty, Spin, Divider, Popconfirm } from 'antd'
 import { DeleteOutlined, ShoppingOutlined } from '@ant-design/icons'
 import { useNavigate } from 'react-router-dom'
 import { useCartStore } from '../store/CartStore'
-import { extractApiError } from '@/api/axiosClient'
 import { Typography } from '@/theme/AppTypography'
 import { colors } from '@/theme/colors'
 import { message } from 'antd'
