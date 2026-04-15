@@ -12,8 +12,8 @@
 // ─────────────────────────────────────────────────────────────
 
 import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios'
-import { API_URL } from '@/config/constants'
-import { useAuthStore } from '@/modules/auth/store/authStore'
+import { API_URL } from '../config/constants'
+import { useAuthStore } from '../modules/auth/store/authStore'
 // TEACH: We use a getter function instead of importing the store
 // directly at the top of this file. Why? Circular dependency.
 // axiosClient ← authStore imports axiosClient

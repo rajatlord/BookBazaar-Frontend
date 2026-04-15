@@ -1,5 +1,5 @@
 import { axiosClient } from "@/api/axiosClient";
-import type { ApiResponse, Review, PaginatedResult } from "@/types/api.types";
+import type { ApiResponse, Review } from "@/types/api.types";
 
 export const reviewApi = {
   getByBook: (bookId: string, params?: { page?: number; limit?: number }) =>

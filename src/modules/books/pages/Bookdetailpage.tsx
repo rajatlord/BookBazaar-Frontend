@@ -34,8 +34,6 @@ import {
 } from "antd";
 import {
   ShoppingCartOutlined,
-  ArrowLeftOutlined,
-  BookOutlined,
   ShopOutlined,
 } from "@ant-design/icons";
 import { bookApi } from "../api/book.api";

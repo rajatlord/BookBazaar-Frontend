@@ -16,7 +16,7 @@ interface LoginPayload {
 
 export const authApi = {
   register: (payload: RegisterPayload) =>
-    axiosClient.post<ApiResponse<AuthTokenPayload>>('/auth/register', payload),
+    axiosClient.post<ApiResponse<{ userId: string }>>('/auth/register', payload),
 
   login: (payload: LoginPayload) =>
     axiosClient.post<ApiResponse<AuthTokenPayload>>('/auth/login', payload),

@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, Alert } from 'antd';
-import { MailOutlined, LockOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
-import { authApi } from '../api/auth.api';
-import { useAuthStore } from '../store/authStore';
-import { LoginPayload } from '../types/auth.types';
+import React, { useState } from "react";
+import { Form, Input, Button, Alert } from "antd";
+import { MailOutlined, LockOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { authApi } from "../api/auth.api";
+import { useAuthStore } from "../store/authStore";
+import { LoginPayload } from "../types/auth.types";
 // import { Typography } from '../../../theme/typography';
 
 export const LoginForm: React.FC = () => {
@@ -18,14 +18,19 @@ export const LoginForm: React.FC = () => {
       setLoading(true);
       setError(null);
       const res = await authApi.login(values);
-      const { user, accessToken, refreshToken } = res.data;
-      setAuth(user, accessToken, refreshToken);
+      // const { user, accessToken, refreshToken } = res.data;
+      // setAuth(user, accessToken, refreshToken);
+      const { userId, name, role, token } = res.data.data;
 
-      if (user.role === 'ADMIN') navigate('/admin/books');
-      else if (user.role === 'SELLER') navigate('/seller/dashboard');
-      else navigate('/books');
+      setAuth({ id: userId, name, role }, token);
+
+      if (role === "ADMIN") navigate("/admin/books");
+      else if (role === "SELLER") navigate("/seller/dashboard");
+      else navigate("/books");
     } catch (err: any) {
-      setError(err?.response?.data?.message || 'Login failed. Please try again.');
+      setError(
+        err?.response?.data?.message || "Login failed. Please try again.",
+      );
     } finally {
       setLoading(false);
     }
@@ -45,12 +50,12 @@ export const LoginForm: React.FC = () => {
       <Form.Item
         name="email"
         rules={[
-          { required: true, message: 'Email is required' },
-          { type: 'email', message: 'Enter a valid email' },
+          { required: true, message: "Email is required" },
+          { type: "email", message: "Enter a valid email" },
         ]}
       >
         <Input
-          prefix={<MailOutlined style={{ color: '#86868b' }} />}
+          prefix={<MailOutlined style={{ color: "#86868b" }} />}
           placeholder="Email"
           style={{ borderRadius: 12, height: 52 }}
         />
@@ -58,10 +63,10 @@ export const LoginForm: React.FC = () => {
 
       <Form.Item
         name="password"
-        rules={[{ required: true, message: 'Password is required' }]}
+        rules={[{ required: true, message: "Password is required" }]}
       >
         <Input.Password
-          prefix={<LockOutlined style={{ color: '#86868b' }} />}
+          prefix={<LockOutlined style={{ color: "#86868b" }} />}
           placeholder="Password"
           style={{ borderRadius: 12, height: 52 }}
         />
@@ -78,8 +83,8 @@ export const LoginForm: React.FC = () => {
             borderRadius: 980,
             fontSize: 16,
             fontWeight: 600,
-            background: '#0071e3',
-            border: 'none',
+            background: "#0071e3",
+            border: "none",
           }}
         >
           Sign In

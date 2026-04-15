@@ -1,30 +1,32 @@
-import React, { useState } from 'react';
-import { Form, Input, Button, Alert, Segmented } from 'antd';
-import { MailOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
-import { useNavigate } from 'react-router-dom';
-import { authApi } from '../api/auth.api';
-import { useAuthStore } from '../store/authStore';
-import { RegisterPayload } from '../types/auth.types';
+import React, { useState } from "react";
+import { Form, Input, Button, Alert, Segmented } from "antd";
+import { MailOutlined, LockOutlined, UserOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import { authApi } from "../api/auth.api";
+// import { useAuthStore } from "../store/authStore";
+import { RegisterPayload } from "../types/auth.types";
 
 export const RegisterForm: React.FC = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [role, setRole] = useState<'BUYER' | 'SELLER'>('BUYER');
-  const { setAuth } = useAuthStore();
+  const [role, setRole] = useState<"BUYER" | "SELLER">("BUYER");
+  // const { setAuth } = useAuthStore();
   const navigate = useNavigate();
 
-  const onFinish = async (values: Omit<RegisterPayload, 'role'>) => {
+  const onFinish = async (values: Omit<RegisterPayload, "role">) => {
     try {
       setLoading(true);
       setError(null);
-      const res = await authApi.register({ ...values, role });
-      const { user, accessToken, refreshToken } = res.data;
-      setAuth(user, accessToken, refreshToken);
+      // const res = await authApi.register({ ...values, role });
+      await authApi.register({ ...values, role });
 
-      if (role === 'SELLER') navigate('/seller/dashboard');
-      else navigate('/books');
+      navigate("/login");
+      // const { user, accessToken, refreshToken } = res.data;
+      // setAuth(user, accessToken, refreshToken);
+      if (role === "SELLER") navigate("/seller/dashboard");
+      else navigate("/books");
     } catch (err: any) {
-      setError(err?.response?.data?.message || 'Registration failed.');
+      setError(err?.response?.data?.message || "Registration failed.");
     } finally {
       setLoading(false);
     }
@@ -45,21 +47,21 @@ export const RegisterForm: React.FC = () => {
         <Segmented
           block
           options={[
-            { label: 'Buy Books', value: 'BUYER' },
-            { label: 'Sell Books', value: 'SELLER' },
+            { label: "Buy Books", value: "BUYER" },
+            { label: "Sell Books", value: "SELLER" },
           ]}
           value={role}
-          onChange={(v) => setRole(v as 'BUYER' | 'SELLER')}
+          onChange={(v) => setRole(v as "BUYER" | "SELLER")}
           style={{ borderRadius: 12, padding: 4 }}
         />
       </Form.Item>
 
       <Form.Item
         name="name"
-        rules={[{ required: true, message: 'Name is required' }]}
+        rules={[{ required: true, message: "Name is required" }]}
       >
         <Input
-          prefix={<UserOutlined style={{ color: '#86868b' }} />}
+          prefix={<UserOutlined style={{ color: "#86868b" }} />}
           placeholder="Full Name"
           style={{ borderRadius: 12, height: 52 }}
         />
@@ -68,12 +70,12 @@ export const RegisterForm: React.FC = () => {
       <Form.Item
         name="email"
         rules={[
-          { required: true, message: 'Email is required' },
-          { type: 'email', message: 'Enter a valid email' },
+          { required: true, message: "Email is required" },
+          { type: "email", message: "Enter a valid email" },
         ]}
       >
         <Input
-          prefix={<MailOutlined style={{ color: '#86868b' }} />}
+          prefix={<MailOutlined style={{ color: "#86868b" }} />}
           placeholder="Email"
           style={{ borderRadius: 12, height: 52 }}
         />
@@ -82,12 +84,12 @@ export const RegisterForm: React.FC = () => {
       <Form.Item
         name="password"
         rules={[
-          { required: true, message: 'Password is required' },
-          { min: 8, message: 'Minimum 8 characters' },
+          { required: true, message: "Password is required" },
+          { min: 8, message: "Minimum 8 characters" },
         ]}
       >
         <Input.Password
-          prefix={<LockOutlined style={{ color: '#86868b' }} />}
+          prefix={<LockOutlined style={{ color: "#86868b" }} />}
           placeholder="Password"
           style={{ borderRadius: 12, height: 52 }}
         />
@@ -104,8 +106,8 @@ export const RegisterForm: React.FC = () => {
             borderRadius: 980,
             fontSize: 16,
             fontWeight: 600,
-            background: '#0071e3',
-            border: 'none',
+            background: "#0071e3",
+            border: "none",
           }}
         >
           Create Account

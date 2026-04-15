@@ -16,7 +16,6 @@ import React, { useEffect, useState } from "react";
 import {
   Card,
   Button,
-  Tag,
   Modal,
   Input,
   message,
@@ -24,7 +23,6 @@ import {
   Row,
   Col,
   Divider,
-  Badge,
 } from "antd";
 import {
   CheckOutlined,
@@ -36,7 +34,7 @@ import { adminApi } from "../api/admin.api";
 import { extractApiError } from "@/api/axiosClient";
 import { Typography } from "@/theme/AppTypography";
 import { colors } from "@/theme/colors";
-import type { PendingShop, Shop } from "@/types/api.types";
+import type { PendingShop } from "@/types/api.types";
 
 type ActionType = "APPROVE" | "REJECT" | null;
 

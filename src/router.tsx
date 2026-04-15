@@ -30,47 +30,47 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 // Layouts
 import {
   PublicLayout, BuyerLayout, SellerLayout, AdminLayout,
-} from '@/modules/layout/Layouts';
+} from './modules/layout/Layouts';
 
 // Security
-import { ProtectedRoute, RoleGuard } from '@/security';
+import { ProtectedRoute, RoleGuard } from './security';
 
 // Auth pages
-import LoginPage    from '@/modules/auth/pages/LoginPage';
-import RegisterPage from '@/modules/auth/pages/RegisterPage';
+import LoginPage    from './modules/auth/pages/LoginPage';
+import RegisterPage from './modules/auth/pages/RegisterPage';
 
 // Book pages
-import BooksPage      from '@/modules/books/pages/BookPage';
-import BookDetailPage from '@/modules/books/pages/Bookdetailpage';
+import BooksPage      from './modules/books/pages/BookPage';
+import BookDetailPage from './modules/books/pages/Bookdetailpage';
 
 // Cart + Checkout
-import CartPage     from '@/modules/cart/pages/CartPage';
-import CheckoutPage from '@/modules/orders/pages/Checkoutpage';
+import CartPage     from './modules/cart/pages/CartPage';
+import CheckoutPage from './modules/orders/pages/Checkoutpage';
 
 // Order pages
-import OrdersPage      from '@/modules/orders/pages/OrderPage';
-import OrderDetailPage from '@/modules/orders/pages/OrderDetailPage';
+import OrdersPage      from './modules/orders/pages/OrderPage';
+import OrderDetailPage from './modules/orders/pages/OrderDetailPage';
 
 // Notifications
-import NotificationsPage from '@/modules/notifier/pages/NotificationsPage';
+import NotificationsPage from './modules/notifier/pages/NotificationsPage';
 
 // Seller pages — lazy loaded for code splitting
 // TEACH: React.lazy() + Suspense = code splitting.
 // The seller bundle is only downloaded when a seller visits
 // a seller route. Buyers never download that JS at all.
 // This keeps the initial load fast for 90% of users (buyers).
-const SellerDashboard  = React.lazy(() => import('@/modules/seller/pages/SellerDashboard'))
-const AddBookPage      = React.lazy(() => import('@/modules/seller/pages/AddBookPage'))
-const SellerOrdersPage = React.lazy(() => import('@/modules/seller/pages/SellerOrdersPage'))
+const SellerDashboard  = React.lazy(() => import('./modules/seller/pages/SellerDashboard'))
+const AddBookPage      = React.lazy(() => import('./modules/seller/pages/AddBookPage'))
+const SellerOrdersPage = React.lazy(() => import('./modules/seller/pages/SellerOrdersPage'))
 
 // Admin pages — also lazy
-const AdminBooksPage = React.lazy(() => import('@/modules/admin/pages/AdminBooksPage'))
-const AdminShopsPage = React.lazy(() => import('@/modules/admin/pages/AdminShopsPage'))
-const AdminUsersPage = React.lazy(() => import('@/modules/admin/pages/AdminUsersPage'))
+const AdminBooksPage = React.lazy(() => import('./modules/admin/pages/AdminBooksPage'))
+const AdminShopsPage = React.lazy(() => import('./modules/admin/pages/AdminShopsPage'))
+const AdminUsersPage = React.lazy(() => import('./modules/admin/pages/AdminUsersPage'))
 
 // Utility pages
-import ForbiddenPage from '@/modules/layout/ForbiddenPage'
-import NotFoundPage  from '@/modules/layout/NotFoundPage'
+import ForbiddenPage from './modules/layout/ForbiddenPage'
+import NotFoundPage  from './modules/layout/NotFoundPage'
 
 export const router = createBrowserRouter([
   // ── Public routes (no auth required) ──────────────────────
