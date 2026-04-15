@@ -50,7 +50,7 @@ const SellerOrdersPage: React.FC = () => {
       setLoading(true)
       try {
         const res = await sellerApi.getOrders({ page, limit: 15 })
-        setOrders(res.data.data.items)
+        setOrders(res.data.data.data)
         setTotal(res.data.data.total)
       } catch { /* handled globally */ }
       finally { setLoading(false) }

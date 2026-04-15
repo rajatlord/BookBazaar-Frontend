@@ -186,7 +186,7 @@ const AddBookPage: React.FC = () => {
                     min={1}
                     max={100000}
                     formatter={(v) => `₹ ${v}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-                    parser={(v) => Number(v!.replace(/₹\s?|(,*)/g, ''))}
+                    parser={(v) => Number(v!.replace(/₹\s?|(,*)/g, '')) as 1 | 100000}
                   />
                 </Form.Item>
 

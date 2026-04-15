@@ -1,4 +1,4 @@
-import { List, Button as AntBtn } from 'antd';
+import { List } from 'antd';
 import { useNotifierStore } from '@/modules/notifier/store/notifierstore';
 import React, { useEffect} from 'react';
 import { Typography } from '@/theme/AppTypography';
