@@ -34,7 +34,7 @@ export const AdminUsersPage: React.FC = () => {
       setLoading(true);
       try {
         const res = await adminApi.getUsers({ page, limit: 20 });
-        setUsers(res.data.data.items);
+        setUsers(res.data.data.data);
         setTotal(res.data.data.total);
       } catch {
         /* handled globally */
