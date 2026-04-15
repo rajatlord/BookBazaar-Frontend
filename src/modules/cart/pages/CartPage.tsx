@@ -32,7 +32,7 @@ export const CartPage: React.FC = () => {
             {cart!.items.map((item) => (
               <div key={item.id} style={{ background: '#fff', borderRadius: 16, padding: 20, marginBottom: 12, display: 'flex', gap: 16, alignItems: 'center', boxShadow: '0 1px 6px rgba(0,0,0,0.06)' }}>
                 <div style={{ width: 56, height: 72, borderRadius: 10, background: colors.primary, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
-                  <Typography variant="caption" style={{ color: '#fff', fontWeight: 700 }}>{item.book.title.slice(0,2).toUpperCase()}</Typography>
+                  <Typography variant="caption" style={{ color: '#fff', fontWeight: 700 }}>{item.bookTitle.slice(0,2).toUpperCase()}</Typography>
                 </div>
                 <div style={{ flex: 1 }}>
                   <Typography variant="label">{item.book.title}</Typography>

@@ -14,7 +14,7 @@ export interface ApiResponse<T> {
 }
 
 export interface PaginatedResult<T> {
-  items: T[]
+  data: T[]
   total: number
   page: number
   limit: number
@@ -33,17 +33,34 @@ export interface User {
 }
 
 export interface AuthTokenPayload {
+  userId: string
+  name: string
+  role: UserRole
   token: string
-  user: User
+}
+
+export interface AuthUser {
+  id: string
+  name: string
+  role: UserRole
 }
 
 export interface Shop {
-  id: string
+  shopId: string
   sellerId: string
   name: string
   description?: string
   status: ShopStatus
   createdAt: string
+}
+
+export interface PendingShop {
+  shopId: string
+  name: string
+  sellerName: string
+  sellerEmail: string
+  submittedAt: string
+  status: ShopStatus
 }
 
 export interface Book {
@@ -61,6 +78,21 @@ export interface Book {
   shop?: Shop
 }
 
+export interface PendingBook {
+  id: string;
+  shopId: string;
+  title: string;
+  author: string;
+  bookId:string;
+  sellerName:string;
+  shopName:string;
+  status: BookStatus;
+  submittedAt: string;
+  price: number;
+  genre?: string;
+  isbn: string;
+  availableStock: number;
+}
 export interface Inventory {
   id: string
   bookId: string
@@ -73,8 +105,10 @@ export interface CartItem {
   id: string
   cartId: string
   bookId: string
+  bookTitle: string
   quantity: number
   priceAtAddTime: number
+  subtotal: number
   book: Book
 }
 

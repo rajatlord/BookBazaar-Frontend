@@ -56,9 +56,10 @@ const SellerDashboard: React.FC = () => {
           sellerApi.getMyBooks({ limit: 5 }),
           sellerApi.getOrders({ limit: 5 }),
         ])
-        if (shopRes.status === 'fulfilled')   setShop(shopRes.value.data.data)
-        if (booksRes.status === 'fulfilled')  setBooks(booksRes.value.data.data.items)
-        if (ordersRes.status === 'fulfilled') setOrders(ordersRes.value.data.data.items)
+        if (shopRes.status === 'fulfilled')   setShop(shopRes.value.data.data  ?? [])
+        if (booksRes.status === 'fulfilled')  setBooks(booksRes.value.data.data.items  ?? [])
+        if (ordersRes.status === 'fulfilled')
+  setOrders(ordersRes.value.data.data.items ?? [])
       } catch { /* handled below */ }
       finally { setLoading(false) }
     }

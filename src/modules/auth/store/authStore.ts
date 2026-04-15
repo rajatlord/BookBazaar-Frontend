@@ -15,36 +15,42 @@
 // Local state (a form's loading spinner) stays in useState().
 // ─────────────────────────────────────────────────────────────
 
-import { create } from 'zustand'
-import type { User } from '@/types/api.types'
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
+import type { AuthUser } from "@/types/api.types";
 
 interface AuthState {
   // ── State ──────────────────────────────────────────────────
-  user:            User | null
-  token:           string | null
-  isAuthenticated: boolean
+  user: AuthUser | null;
+  token: string | null;
+  isAuthenticated: boolean;
 
   // ── Actions ────────────────────────────────────────────────
   // TEACH: Actions live inside the store itself — not in a
   // separate slice/reducer. This keeps everything co-located.
-  setAuth:  (user: User, token: string) => void
-  logout:   () => void
+  setAuth: (user: AuthUser, token: string) => void;
+  logout: () => void;
 }
 
-export const useAuthStore = create<AuthState>((set) => ({
+export const useAuthStore = create<AuthState>()(
   // Initial state — nobody logged in
-  user:            null,
-  token:           null,
-  isAuthenticated: false,
+  persist(
+    (set) => ({
+      user: null,
+      token: null,
+      isAuthenticated: false,
 
-  // Called after successful login or register
-  setAuth: (user, token) =>
-    set({ user, token, isAuthenticated: true }),
+      // Called after successful login or register
+      setAuth: (user, token) => set({ user, token, isAuthenticated: true }),
 
-  // Called on logout button OR when 401 fires in axiosClient
-  logout: () =>
-    set({ user: null, token: null, isAuthenticated: false }),
-}))
+      // Called on logout button OR when 401 fires in axiosClient
+      logout: () => set({ user: null, token: null, isAuthenticated: false }),
+    }),
+    {
+      name: "auth-storage", // localStorage key
+    },
+  ),
+);
 
 // ─────────────────────────────────────────────────────────────
 // TEACH: Selectors — avoid re-renders by selecting only what

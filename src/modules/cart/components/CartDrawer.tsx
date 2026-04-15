@@ -134,19 +134,19 @@ const CartDrawer: React.FC<CartDrawerProps> = ({ open, onClose }) => {
                 {/* Book color block */}
                 <div style={{ ...styles.itemCover, background: getItemColor(idx) }}>
                   <Typography variant="caption" style={{ color: '#fff', fontWeight: 600, textAlign: 'center', fontSize: 10 }}>
-                    {item.book.title.slice(0, 2).toUpperCase()}
+                    {item.bookTitle.slice(0, 2).toUpperCase()?? '??'}
                   </Typography>
                 </div>
 
                 <div style={styles.itemBody}>
                   <Typography variant="label" style={{ marginBottom: 2 }}>
-                    {item.book.title.length > 35
-                      ? item.book.title.slice(0, 35) + '…'
-                      : item.book.title}
+                    {item.bookTitle.length > 35
+                      ? item.bookTitle?.slice(0, 35) + '…'
+                      : item.bookTitle}
                   </Typography>
-                  <Typography variant="caption" color="secondary">
+                  {/* <Typography variant="caption" color="secondary">
                     by {item.book.author}
-                  </Typography>
+                  </Typography> */}
                   <div style={styles.itemPriceRow}>
                     <Typography variant="bodyMedium" style={{ color: colors.primary }}>
                       ₹{(item.priceAtAddTime * item.quantity).toLocaleString('en-IN')}

@@ -21,8 +21,8 @@
 
 import React, { useEffect, useState } from 'react'
 import {
-  Card, Button, Tag, Modal, Input, message,
-  Spin, Empty, Row, Col, Divider, Badge,
+  Card, Button, Modal, Input, message,
+  Spin, Row, Col, Divider, Badge,
 } from 'antd'
 import {
   CheckOutlined, CloseOutlined, BookOutlined,
@@ -32,18 +32,18 @@ import { adminApi } from '../api/admin.api'
 import { extractApiError } from '@/api/axiosClient'
 import { Typography } from '@/theme/AppTypography'
 import { colors } from '@/theme/colors'
-import type { Book } from '@/types/api.types'
+import type { PendingBook } from '@/types/api.types'
 
 type ActionType = 'APPROVE' | 'REJECT' | null
 
 const AdminBooksPage: React.FC = () => {
-  const [books, setBooks]         = useState<Book[]>([])
+  const [books, setBooks]         = useState<PendingBook[]>([])
   const [total, setTotal]         = useState(0)
   const [loading, setLoading]     = useState(true)
   const [page, setPage]           = useState(1)
 
   // Modal state
-  const [selectedBook, setSelectedBook] = useState<Book | null>(null)
+  const [selectedBook, setSelectedBook] = useState<PendingBook | null>(null)
   const [action, setAction]             = useState<ActionType>(null)
   const [reason, setReason]             = useState('')
   const [submitting, setSubmitting]     = useState(false)
@@ -53,15 +53,20 @@ const AdminBooksPage: React.FC = () => {
       setLoading(true)
       try {
         const res = await adminApi.getPendingBooks({ page, limit: 12 })
-        setBooks(res.data.data.items)
-        setTotal(res.data.data.total)
+        setBooks(res.data.data.data ?? []) 
+        setTotal(res.data.data.total ?? 0)
       } catch { /* handled globally */ }
       finally { setLoading(false) }
     }
-    load()
+    load()  
   }, [page])
 
-  const openModal = (book: Book, act: ActionType) => {
+  // const openModal = (book: Book, act: ActionType) => {
+  //   setSelectedBook(book)
+  //   setAction(act)
+  //   setReason('')
+  // }
+  const openModal = (book: PendingBook, act: ActionType) => {
     setSelectedBook(book)
     setAction(act)
     setReason('')
@@ -78,14 +83,14 @@ const AdminBooksPage: React.FC = () => {
     setSubmitting(true)
     try {
       await adminApi.verifyBook(
-        selectedBook.id,
+        selectedBook.bookId,
         action,
         action === 'REJECT' ? reason : undefined
       )
       // Remove the book from local state immediately
       // TEACH: filter() creates a new array without the processed item.
       // The admin sees it disappear — instant visual feedback.
-      setBooks((prev) => prev.filter((b) => b.id !== selectedBook.id))
+      setBooks((prev) => prev.filter((b) => b.bookId !== selectedBook.bookId))
       setTotal((t) => t - 1)
       message.success(
         action === 'APPROVE'
@@ -182,7 +187,7 @@ const AdminBooksPage: React.FC = () => {
                     <div style={styles.metaRow}>
                       <ShopOutlined style={{ color: colors.textTertiary, fontSize: 12 }} />
                       <Typography variant="bodySmall" color="secondary">
-                        {book.shop?.name ?? 'Unknown shop'}
+                        {book.shopName ?? 'Unknown shop'}
                       </Typography>
                     </div>
                     <div style={styles.metaRow}>
@@ -199,7 +204,7 @@ const AdminBooksPage: React.FC = () => {
                         ₹{book.price.toLocaleString('en-IN')}
                       </Typography>
                       <Typography variant="caption" color="secondary">
-                        Stock: {book.stockCount}
+                        Stock: {book.availableStock}
                       </Typography>
                     </div>
 

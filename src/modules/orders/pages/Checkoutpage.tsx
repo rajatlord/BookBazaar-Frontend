@@ -247,7 +247,7 @@ const CheckoutPage: React.FC = () => {
         {cart.items.map((item) => (
           <div key={item.id} style={styles.summaryRow}>
             <Typography variant="bodySmall">
-              {item.book.title} × {item.quantity}
+              {item.bookTitle} × {item.quantity}
             </Typography>
             <Typography variant="bodySmall">
               ₹{(item.priceAtAddTime * item.quantity).toLocaleString('en-IN')}

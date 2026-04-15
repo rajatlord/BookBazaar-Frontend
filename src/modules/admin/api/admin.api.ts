@@ -1,18 +1,18 @@
 import { axiosClient } from '@/api/axiosClient'
-import type { ApiResponse, Book, Shop, PaginatedResult, User } from '@/types/api.types'
+import type { ApiResponse, Book, Shop, PaginatedResult, User, PendingShop, PendingBook } from '@/types/api.types'
 
 type VerifyAction = 'APPROVE' | 'REJECT'
 
 export const adminApi = {
   getPendingBooks: (params?: { page?: number; limit?: number }) =>
-    axiosClient.get<ApiResponse<PaginatedResult<Book>>>(
+    axiosClient.get<ApiResponse<PaginatedResult<PendingBook>>>(
       '/admin/books/pending', { params }
     ),
   verifyBook: (id: string, action: VerifyAction, reason?: string) =>
     axiosClient.patch<ApiResponse<Book>>(`/admin/books/${id}/verify`, { action, reason }),
 
   getPendingShops: (params?: { page?: number; limit?: number }) =>
-    axiosClient.get<ApiResponse<PaginatedResult<Shop>>>(
+    axiosClient.get<ApiResponse<PendingShop[]>>(
       '/admin/shops/pending', { params }
     ),
   verifyShop: (id: string, action: VerifyAction, reason?: string) =>

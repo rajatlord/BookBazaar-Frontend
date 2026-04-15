@@ -74,7 +74,7 @@ const OrdersPage: React.FC = () => {
         const res = await orderApi.getAll({ page, limit: 10 })
         // Guard: only set state if component is still mounted
         if (isMounted.current) {
-          setOrders(res.data.data.items)
+          setOrders(res.data.data.data)
           setTotal(res.data.data.total)
         }
       } catch { /* handled globally by interceptor */ }
