@@ -32,7 +32,7 @@ export const useNotifierStore = create<NotifierState>((set) => ({
     set({ loading: true })
     try {
       const res   = await notificationApi.getAll()
-      const items = res.data.data.items
+      const items = res.data.data.data
       set({
         notifications: items,
         unreadCount:   items.filter((n) => !n.isRead).length,
